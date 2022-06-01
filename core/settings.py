@@ -41,6 +41,7 @@ DEFAULT_APPS = [
 
 LOCAL_APPS = [
     'cotacao',
+    'frontend',
 ]
 
 THIRD_PARTY_APPS = [
