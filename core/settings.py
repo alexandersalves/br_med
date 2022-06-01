@@ -39,7 +39,9 @@ DEFAULT_APPS = [
     'django.contrib.staticfiles',
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    'cotacao',
+]
 
 THIRD_PARTY_APPS = [
     'django_extensions',
