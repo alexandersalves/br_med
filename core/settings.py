@@ -40,6 +40,7 @@ DEFAULT_APPS = [
 ]
 
 LOCAL_APPS = [
+    'core',
     'cotacao',
     'frontend',
 ]
