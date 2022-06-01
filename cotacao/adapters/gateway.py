@@ -8,9 +8,6 @@ class VATcomplyRateGateway(IRateGateway):
         'base': 'https://api.vatcomply.com/rates',
     }
 
-    def __init__(self, http):
-        self.http = http
-
     @property
     def headers(self):
         return {}
