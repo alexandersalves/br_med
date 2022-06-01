@@ -26,4 +26,5 @@ class VATcomplyRateGateway(IRateGateway):
             url=self.routes.get('base'),
             headers=self.headers,
             params=self.params,
+            payload={},
         )
