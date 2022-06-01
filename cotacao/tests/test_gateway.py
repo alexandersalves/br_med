@@ -1,4 +1,3 @@
-from unittest import expectedFailure
 from unittest.mock import Mock
 
 from django.test import TestCase
