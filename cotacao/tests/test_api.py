@@ -8,7 +8,9 @@ class GetRateViewTest(TestCase):
     def setUp(self):
         self.url = reverse('cotacao-get-rate')
 
-    @vcr.use_cassette()
+    @vcr.use_cassette(
+        path_transformer=vcr.VCR.ensure_suffix('.cassettes'),
+    )
     def test_get_rate(self):
         expected = [
             'date',
