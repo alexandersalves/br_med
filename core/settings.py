@@ -41,7 +41,11 @@ DEFAULT_APPS = [
 
 LOCAL_APPS = []
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'django_extensions',
+    'django_filters',
+    'rest_framework',
+]
 
 INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
