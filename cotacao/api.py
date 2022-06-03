@@ -15,5 +15,5 @@ class GetRateView(APIView):
             )
             response = use_case.execute()
         except Exception as error:
-            raise Response(error, 400)
+            return Response(str(error), 400)
         return Response(response)
