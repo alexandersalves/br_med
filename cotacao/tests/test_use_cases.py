@@ -16,11 +16,24 @@ class GetRateUseCaseTest(TestCase):
         self.gateway = Mock()
         self.gateway.return_value = Mock(spec=IRateGateway)
         self.gateway.return_value.http = operator.return_value
+        self.gateway.return_value.get_rate.return_value = {
+            'date': '',
+            'base': '',
+            'rates': {},
+        }
 
         self.use_case = GetRateUseCase(
             self.gateway,
             operator,
         )
+
+        self.date = '03/06/2022'
+        self.filters = {
+            'currency_from': '',
+            'currency_to': '',
+            'start_date': self.date,
+            'end_date': self.date,
+        }
 
     def test_init(self):
         assert isinstance(
@@ -33,30 +46,27 @@ class GetRateUseCaseTest(TestCase):
         )
 
     def test_execute(self):
-        date = '03/06/2022'
         expected = [{
-            'date': date.replace('/', '-'),
+            'date': self.date.replace('/', '-'),
             'rates': {},
         }]
 
-        m_gateway_return = {
-            'date': '',
-            'base': '',
-            'rates': {},
-        }
-        self.gateway.return_value.get_rate.return_value = m_gateway_return
-        response = self.use_case.execute({
-            'currency_from': '',
-            'currency_to': '',
-            'start_date': date,
-            'end_date': date,
-        })
+        response = self.use_case.execute(self.filters)
         assert response == expected
 
         reverse_date = '{}/{}/{}'.format(
-            *date.split('/')[::-1]
+            *self.date.split('/')[::-1]
         )
         self.use_case.gateway.get_rate.assert_called_once_with(
             reverse_date.replace('/', '-'),
             '',
+        )
+
+    def test_get_dates(self):
+        self.use_case._get_dates = Mock()
+        self.use_case._get_dates.return_value = []
+
+        self.use_case.execute(self.filters)
+        self.use_case._get_dates.assert_called_once_with(
+            **self.filters,
         )
