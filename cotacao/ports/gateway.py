@@ -6,7 +6,7 @@ class IRateGateway:
         Requer um operador de requisições HTTP
         '''
 
-    def get_rate(self):
+    def get_rate(self, date, currency):
         '''
         Busca cotações em uma API
         '''

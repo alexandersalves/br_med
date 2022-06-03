@@ -1,3 +1,4 @@
+from email import header
 from unittest.mock import Mock
 
 from django.test import TestCase
@@ -18,11 +19,19 @@ class VATcomplyRateGatewayTest(TestCase):
         expected = {}
         assert self.gateway.headers == expected
 
-    def test_params(self):
-        expected = {
+    def test_http_call(self):
+        expected_url = self.gateway.routes.get('base')
+        expected_params = {
             'base': 'USD',
+            'date': 'dumb-date-test',
         }
-        assert self.gateway.params == expected
+        self.gateway.get_rate(expected_params.get('date'))
+        self.gateway.http.get.assert_called_once_with(
+            url=expected_url,
+            params=expected_params,
+            headers={},
+            payload={},
+        )
 
     def test_get_rate(self):
         expected = {
@@ -31,4 +40,4 @@ class VATcomplyRateGatewayTest(TestCase):
             'rates': {},
         }
         self.http.get.return_value = expected
-        assert self.gateway.get_rate() == expected
+        assert self.gateway.get_rate('dumb-date-test') == expected
