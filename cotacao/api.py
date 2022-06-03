@@ -18,7 +18,7 @@ class GetRateView(APIView):
                 gateway=VATcomplyRateGateway,
                 operator=RequestsHttpOperator,
             )
-            response = use_case.execute()
+            response = use_case.execute(serializer.data)
         except Exception as error:
             return Response(str(error), 400)
         return Response(response)

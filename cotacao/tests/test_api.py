@@ -12,12 +12,20 @@ class GetRateViewTest(TestCase):
         path_transformer=vcr.VCR.ensure_suffix('.cassettes'),
     )
     def test_get_rate(self):
+        date = '03/06/2022'
         expected = [
             'date',
-            'base',
             'rates',
         ]
-        response = self.client.get(self.url)
+        response = self.client.get(
+            self.url,
+            data={
+                'currency_from': 'USD',
+                'currency_to': 'BRL',
+                'start_date': date,
+                'end_date': date,
+            },
+        )
         assert list(
-            response.data.keys(),
+            response.data[0].keys(),
         ) == expected
