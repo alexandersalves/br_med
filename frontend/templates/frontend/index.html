@@ -1,5 +1,117 @@
 {% extends 'core/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
+{% endblock %}
 
 {% block content %}
-Gráfico
+<div class="row p-4">
+    <div class="col-12 m-auto text-center pt-1">
+        <span class="h2">Cotações</span>
+    </div>
+    <div class="col-11 col-sm-5 col-lg-4 col-xl-3 d-flex align-items-center justify-content-center justify-content-sm-start p-2 my-3 mx-auto mx-sm-0">
+        <div class="dropdown">
+            <button class="btn btn-outline-light text-dark btn-sm dropdown-toggle" type="button" id="currency1" data-bs-toggle="dropdown" aria-expanded="false">
+                <img
+                    src="https://flagcdn.com/us.svg"
+                    width="34"
+                    data-currency="USD"
+                >
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="currency1" style="min-width: 1rem;">
+                <li><a class="dropdown-item" href="#">
+                    <img
+                        src="https://flagcdn.com/us.svg"
+                        width="34"
+                        data-currency="USD"
+                    >
+                </a></li>
+                <li><a class="dropdown-item" href="#">
+                    <img
+                        src="https://flagcdn.com/br.svg"
+                        width="34"
+                        data-currency="BRL"
+                    >
+                </a></li>
+                <li><a class="dropdown-item" href="#">
+                    <img
+                        src="https://flagcdn.com/eu.svg"
+                        width="34"
+                        data-currency="EUR"
+                    >
+                </a></li>
+                <li><a class="dropdown-item" href="#">
+                    <img
+                        src="https://flagcdn.com/jp.svg"
+                        width="34"
+                        data-currency="JPY"
+                    >
+                </a></li>
+            </ul>
+        </div>
+        <div class="dropdown px-3">
+            <button class="btn btn-outline-light btn-sm" id="switch_currencies">
+                <i class="fa-solid fa-repeat text-dark"></i>
+            </button>
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-outline-light text-dark btn-sm dropdown-toggle" type="button" id="currency2" data-bs-toggle="dropdown" aria-expanded="false">
+                <img
+                    src="https://flagcdn.com/br.svg"
+                    width="34"
+                    data-currency="BRL"
+                >
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="currency2" style="min-width: 1rem;">
+                <li><a class="dropdown-item" href="#">
+                    <img
+                        src="https://flagcdn.com/us.svg"
+                        width="34"
+                        data-currency="USD"
+                    >
+                </a></li>
+                <li><a class="dropdown-item" href="#">
+                    <img
+                        src="https://flagcdn.com/br.svg"
+                        width="34"
+                        data-currency="BRL"
+                    >
+                </a></li>
+                <li><a class="dropdown-item" href="#">
+                    <img
+                        src="https://flagcdn.com/eu.svg"
+                        width="34"
+                        data-currency="EUR"
+                    >
+                </a></li>
+                <li><a class="dropdown-item" href="#">
+                    <img
+                        src="https://flagcdn.com/jp.svg"
+                        width="34"
+                        data-currency="JPY"
+                    >
+                </a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-12 col-sm-7 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center p-2 ms-auto">
+        <span class="text-muted">De</span>
+        <input class="form-control form-control-sm mx-3" type="text" readonly id="startdate">
+        <span class="text-muted">Até</span>
+        <input class="form-control form-control-sm ms-3" type="text" readonly id="enddate">
+    </div>
+</div>
+<div id="loader" class="text-center">
+    <p class="h5 my-5 text-muted">Carregando</p>
+    <i class="fa-solid fa-spinner fa-5x fa-spin-pulse text-muted"></i>
+</div>
+<div id="grafico" style="width:100%; height:400px;"></div>
 {% endblock content %}
+
+{% block javascript %}
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.3/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="{% static 'frontend/index.js' %}" type="module"></script>
+{% endblock %}
