@@ -33,12 +33,30 @@ class GetRateUseCaseTest(TestCase):
         )
 
     def test_execute(self):
-        expected = {
+        date = '03/06/2022'
+        expected = [{
+            'date': date.replace('/', '-'),
+            'rates': {},
+        }]
+
+        m_gateway_return = {
             'date': '',
             'base': '',
             'rates': {},
         }
-        self.gateway.return_value.get_rate.return_value = expected
-        response = self.use_case.execute()
+        self.gateway.return_value.get_rate.return_value = m_gateway_return
+        response = self.use_case.execute({
+            'currency_from': '',
+            'currency_to': '',
+            'start_date': date,
+            'end_date': date,
+        })
         assert response == expected
-        self.use_case.gateway.get_rate.assert_called_once_with()
+
+        reverse_date = '{}/{}/{}'.format(
+            *date.split('/')[::-1]
+        )
+        self.use_case.gateway.get_rate.assert_called_once_with(
+            reverse_date.replace('/', '-'),
+            '',
+        )
