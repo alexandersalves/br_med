@@ -4,12 +4,12 @@ from cotacao.ports.gateway import IRateGateway
 
 class VATcomplyRateGateway(IRateGateway):
 
-    routes = {
+    _routes = {
         'base': 'https://api.vatcomply.com/rates',
     }
 
     @property
-    def headers(self):
+    def _headers(self):
         return {}
 
     def get_rate(self, date, currency='USD'):
@@ -18,8 +18,8 @@ class VATcomplyRateGateway(IRateGateway):
             'date': date,
         }
         return self.http.get(
-            url=self.routes.get('base'),
-            headers=self.headers,
+            url=self._routes.get('base'),
+            headers=self._headers,
             params=params,
             payload={},
         )

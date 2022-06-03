@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 
 class GetRateUseCase:
 
-    allowed_currencies = [
+    _allowed_currencies = [
         'BRL',
         'USD',
         'EUR',
@@ -38,7 +38,7 @@ class GetRateUseCase:
                     key: round(value, 2)
                     for key, value in response['rates'].items()
                     if all([
-                        key in self.allowed_currencies,
+                        key in self._allowed_currencies,
                         key == filters.get('currency_from')
                         or key == filters.get('currency_to'),
                     ])

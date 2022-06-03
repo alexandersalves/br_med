@@ -15,7 +15,7 @@ class RequestsHttpOperatorTest(TestCase):
         self.mocked_response.status_code = 200
         self.mocked_response.json.return_value = {}
         self.mock_client.get.return_value = self.mocked_response
-        self.operator.client = self.mock_client
+        self.operator._client = self.mock_client
 
         self.options = {
             'url': 'http://test',

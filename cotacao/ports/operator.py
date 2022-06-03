@@ -1,6 +1,6 @@
 class IHttpOperator:
 
-    client = None
+    _client = None
 
     def get(self, url, headers, params, payload):
         '''

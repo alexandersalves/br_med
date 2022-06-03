@@ -17,10 +17,10 @@ class VATcomplyRateGatewayTest(TestCase):
 
     def test_headers(self):
         expected = {}
-        assert self.gateway.headers == expected
+        assert self.gateway._headers == expected
 
     def test_http_call(self):
-        expected_url = self.gateway.routes.get('base')
+        expected_url = self.gateway._routes.get('base')
         expected_params = {
             'base': 'USD',
             'date': 'dumb-date-test',

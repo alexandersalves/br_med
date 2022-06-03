@@ -5,10 +5,10 @@ from cotacao.ports.operator import IHttpOperator
 
 class RequestsHttpOperator(IHttpOperator):
 
-    client = requests
+    _client = requests
 
     def get(self, url, headers, params, payload):
-        response = self.client.get(
+        response = self._client.get(
             url=url,
             headers=headers,
             params=params,
