@@ -18,6 +18,8 @@ class RequestsHttpOperator(IHttpOperator):
         if response.status_code == 200:
             return response.json()
 
+        # Retornar a url é uma falha de segurança,
+        # mantida para fins informativos.
         raise Exception(
             f'Chamada inválida para {url} ({response.status_code}).'
         )
