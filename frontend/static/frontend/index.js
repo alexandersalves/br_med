@@ -12,6 +12,17 @@ const update_chart = () => {
         return;
     };
     fetching_data = true;
+    $('#currency1').next().removeClass('show');
+    $('#currency2').next().removeClass('show');
+
+    const turn_button_disable = (disabled) => {
+        $('#switch_currencies').prop('disabled', disabled);
+        $('#currency1').prop('disabled', disabled);
+        $('#currency2').prop('disabled', disabled);
+        $('#startdate').prop('disabled', disabled);
+        $('#enddate').prop('disabled', disabled);
+    };
+    turn_button_disable(true);
 
     $('#loader').show();
     $('#grafico').hide();
@@ -50,6 +61,7 @@ const update_chart = () => {
             $('#loader').hide();
             $('#grafico').show();
             fetching_data = false;
+            turn_button_disable(false);
         }
     });
 };
