@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from cotacao.use_cases import GetRateUseCase
+from cotacao.adapters.dao import RateDao, CurrencyDao
 from cotacao.adapters.gateway import VATcomplyRateGateway
 from cotacao.adapters.operator import RequestsHttpOperator
 from cotacao.serializers import GetRateSerializer
@@ -17,6 +18,8 @@ class GetRateView(APIView):
             use_case = GetRateUseCase(
                 gateway=VATcomplyRateGateway,
                 operator=RequestsHttpOperator,
+                currency_dao=CurrencyDao,
+                rate_dao=RateDao,
             )
             response = use_case.execute(serializer.data)
         except Exception as error:
