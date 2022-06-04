@@ -33,7 +33,9 @@ SECRET_KEY = get_env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = get_env('DEBUG').upper() == 'TRUE'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+if not DEBUG:
+    ALLOWED_HOSTS = ['.herokuapp.com']
 
 
 # Application definition
