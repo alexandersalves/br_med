@@ -1,5 +1,5 @@
 export const create_chart = (element, categories, rates) => {
-    Highcharts.chart(element, {
+    let chart = Highcharts.chart(element, {
         chart: {
             type: 'line',
         },
@@ -25,5 +25,10 @@ export const create_chart = (element, categories, rates) => {
                 };
             }
         ),
+    });
+    chart.series.map((serie)=>{
+        if (serie.name == $('#currency1 :first-child').data('currency')){
+            serie.setVisible();
+        };
     });
 };
