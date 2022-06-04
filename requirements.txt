@@ -43,6 +43,10 @@ django==3.1.4 \
     #   -r requirements.in
     #   django-filter
     #   djangorestframework
+django-environ==0.8.1 \
+    --hash=sha256:42593bee519a527602a467c7b682aee1a051c2597f98c45f4f4f44169ecdb6e5 \
+    --hash=sha256:6f0bc902b43891656b20486938cba0861dc62892784a44919170719572a534cb
+    # via -r requirements.in
 django-extensions==3.1.0 \
     --hash=sha256:7cd002495ff0a0e5eb6cdd6be759600905b4e4079232ea27618fc46bdd853651 \
     --hash=sha256:c7f88625a53f631745d4f2bef9ec4dcb999ed59476393bdbbe99db8596778846
