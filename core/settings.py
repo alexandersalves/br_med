@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 
+import django_heroku
 import dj_database_url
 import environ
 
@@ -158,3 +159,6 @@ REST_FRAMEWORK = {
 
 # Honra o 'X-Forwarded-Proto' header (request.is_secure())
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Ativar Django-Heroku
+django_heroku.settings(locals())
