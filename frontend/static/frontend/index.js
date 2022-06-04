@@ -23,7 +23,7 @@ const update_chart = () => {
         end_date: $('#enddate').val(),
     };
     $.ajax({
-        url: "/cotacao/get-rate",
+        url: "/cotacao/get-rate/",
         type: 'GET',
         dataType: 'json',
         data: payload,

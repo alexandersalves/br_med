@@ -6,5 +6,5 @@ from cotacao.api import (
 
 
 urlpatterns = [
-    path('get-rate', GetRateView.as_view(), name='cotacao-get-rate'),
+    path('get-rate/', GetRateView.as_view(), name='cotacao-get-rate'),
 ]
