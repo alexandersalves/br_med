@@ -1,5 +1,7 @@
 from rest_framework import serializers
 
+from cotacao.models import Currency, Rate
+
 
 class GetRateSerializer(serializers.Serializer):
     currency_from = serializers.CharField(max_length=3)
@@ -24,3 +26,18 @@ class GetRateSerializer(serializers.Serializer):
             )
 
         return attrs
+
+
+class RateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rate
+        fields = '__all__'
+        depth = 1
+
+
+class CurrencySerializer(serializers.ModelSerializer):
+    rates = RateSerializer(many=True)
+
+    class Meta:
+        model = Currency
+        fields = '__all__'
