@@ -5,6 +5,7 @@ from django.test import TestCase
 from cotacao.ports.operator import IHttpOperator
 from cotacao.ports.gateway import IRateGateway
 from cotacao.use_cases import GetRateUseCase
+from cotacao.repositories import CurrencyRepository
 
 
 class GetRateUseCaseTest(TestCase):
@@ -25,12 +26,14 @@ class GetRateUseCaseTest(TestCase):
         self.use_case = GetRateUseCase(
             self.gateway,
             operator,
+            Mock(),
+            Mock(),
         )
 
         self.date = '03/06/2022'
         self.filters = {
-            'currency_from': '',
-            'currency_to': '',
+            'currency_from': 'USD',
+            'currency_to': 'BRL',
             'start_date': self.date,
             'end_date': self.date,
         }
@@ -43,6 +46,10 @@ class GetRateUseCaseTest(TestCase):
         assert isinstance(
             self.use_case.gateway.http,
             IHttpOperator,
+        )
+        assert isinstance(
+            self.use_case.repository,
+            CurrencyRepository,
         )
 
     def test_execute(self):
@@ -59,7 +66,7 @@ class GetRateUseCaseTest(TestCase):
         )
         self.use_case.gateway.get_rate.assert_called_once_with(
             reverse_date.replace('/', '-'),
-            '',
+            self.filters.get('currency_from'),
         )
 
     def test_get_dates(self):
@@ -69,4 +76,20 @@ class GetRateUseCaseTest(TestCase):
         self.use_case.execute(self.filters)
         self.use_case._get_dates.assert_called_once_with(
             **self.filters,
+        )
+
+    def test_persist(self):
+        expected = {
+            'date': self.date.replace('/', '-'),
+            'rates': {},
+        }
+        self.use_case._persist_rate = Mock(
+            side_effect=self.use_case._persist_rate,
+        )
+        self.use_case.repository.persist_rate = Mock()
+
+        self.use_case.execute(self.filters)
+        self.use_case._persist_rate.assert_called_once_with(expected)
+        self.use_case.repository.persist_rate.assert_called_once_with(
+            expected,
         )
