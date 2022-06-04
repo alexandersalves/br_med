@@ -69,9 +69,12 @@ $('#switch_currencies').click(function(){
     update_chart();
 });
 
-$('.dropdown-menu li a').click(function(){
+$('.dropdown-menu li a').click(function(event){
+    event.preventDefault();
+
     let element = $(this).parent().parent().parent().find('.dropdown-toggle');
     let other_currency = element.is('#currency1') ? $('#currency2') : $('#currency1');
+
     if ($(this).html().trim() == other_currency.html().trim()){
         switch_currencies();
     } else {
