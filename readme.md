@@ -38,6 +38,11 @@ Instalar os pacotes python neste ambiente
 pip install -r requirements.txt
 ```
 
+Copiar o arquivo *.env.sample* na pasta core, removendo o *.sample* no final, para ficar *.env* e então preencher com as devidas variáveis de ambiente
+```bash
+cp core/.env.sample core/.env
+```
+
 # Execução
 ```bash
 python manage.py runserver 0.0.0.0:8000
