@@ -35,7 +35,7 @@ DEBUG = get_env('DEBUG').upper() == 'TRUE'
 
 ALLOWED_HOSTS = ['*']
 if not DEBUG:
-    ALLOWED_HOSTS = ['.herokuapp.com']
+    ALLOWED_HOSTS = [f'{get_env("HEROKU_APP_NAME")}.herokuapp.com']
 
 
 # Application definition
@@ -65,6 +65,7 @@ INSTALLED_APPS = DEFAULT_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
