@@ -22,7 +22,11 @@ class CurrencyRepository:
                 'date': date,
                 'amount': amount,
                 'currency_id': self._get_currency(abbreviation),
+                'base_id': self._get_currency(data.get('base')),
             }
+
+            if data.get('base') == abbreviation:
+                continue
 
             try:
                 self.rate.add(item)
