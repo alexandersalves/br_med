@@ -52,7 +52,7 @@ class GetRateUseCase:
             item = {
                 'date': date.strftime("%d-%m-%Y"),
                 'rates': {
-                    key: round(value, 2)
+                    key: value
                     for key, value in response['rates'].items()
                     if any([
                         key == currency_from,
