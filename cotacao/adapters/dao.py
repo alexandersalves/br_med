@@ -20,6 +20,7 @@ class RateDao(IRateDao):
         rate, _ = self.model.objects.get_or_create(
             date=item.get('date'),
             currency_id=item.get('currency_id'),
+            base_id=item.get('base_id'),
             defaults=item,
         )
         return rate
