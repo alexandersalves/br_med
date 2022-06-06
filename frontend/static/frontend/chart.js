@@ -25,6 +25,17 @@ export const create_chart = (element, categories, rates) => {
                 };
             }
         ),
+        plotOptions: {
+            line: {
+                dataLabels: {
+                    enabled: true,
+                    formatter: function () {
+                        return Highcharts.numberFormat(this.y, 2);
+                    },
+                },
+                enableMouseTracking: false,
+            }
+        },
     });
     chart.series.map((serie)=>{
         if (serie.name == $('#currency1 :first-child').data('currency')){
