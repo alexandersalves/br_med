@@ -1,4 +1,4 @@
-from unittest.mock import Mock
+from unittest.mock import Mock, call
 
 from django.test import TestCase
 
@@ -13,6 +13,7 @@ class CurrencyRepositoryTest(TestCase):
         self.data = {
             'date': '03-06-2022',
             'rates': {'BRL': 1.0},
+            'base': 'USD',
         }
 
         currency_dao = Mock()
@@ -44,6 +45,7 @@ class CurrencyRepositoryTest(TestCase):
             ),
             'amount': list(self.data.get('rates').values())[0],
             'currency_id': self.currency_id,
+            'base_id': self.currency_id,
         }
         self.repository.persist_rate(self.data)
         self.repository.rate.add.assert_called_once_with(expected)
@@ -55,9 +57,13 @@ class CurrencyRepositoryTest(TestCase):
         )
         self.repository.persist_rate(self.data)
 
-        self.repository._get_currency.assert_called_once_with(
-            currency_abbreviation,
-        )
-        self.repository.currency.find_currency_id.assert_called_once_with(
-            currency_abbreviation,
-        )
+        assert self.repository._get_currency.call_count == 2
+        self.repository._get_currency.assert_has_calls([
+            call(currency_abbreviation),
+            call(self.data.get('base')),
+        ])
+        assert self.repository.currency.find_currency_id.call_count == 2
+        self.repository.currency.find_currency_id.assert_has_calls([
+            call(currency_abbreviation),
+            call(self.data.get('base')),
+        ])

@@ -41,11 +41,16 @@ class RateDaoTest(TestCase):
             id=1,
             abbreviation='BRL',
         )
+        self.base = Currency.objects.create(
+            id=2,
+            abbreviation='USD',
+        )
 
         self.item = {
             'date': '2022-06-03',
             'amount': 1.0,
             'currency_id': self.currency.id,
+            'base_id': self.base.id,
         }
 
         self.rate_dao = RateDao()

@@ -56,3 +56,13 @@ python manage.py migrate
 ```
 
 *: Executar também no momento inicial da instalação
+
+# Testes
+```bash
+python manage.py test
+```
+
+Para executar os testes com sucesso, é necessário copiar os arquivos estáticos (principalmente por causa do favicon.ico)
+```bash
+python manage.py collectstatic
+```
