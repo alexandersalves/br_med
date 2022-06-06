@@ -1,3 +1,4 @@
+from copy import deepcopy
 from datetime import datetime, timedelta
 
 from cotacao.repositories import CurrencyRepository
@@ -61,6 +62,9 @@ class GetRateUseCase:
                 },
             }
             result.append(item)
+
+            persist = deepcopy(item)
+            persist['base'] = response['base']
             # TODO: Deveria ser persistido com delay
-            self._persist_rate(item)
+            self._persist_rate(persist)
         return result

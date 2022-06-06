@@ -82,6 +82,7 @@ class GetRateUseCaseTest(TestCase):
         expected = {
             'date': self.date.replace('/', '-'),
             'rates': {},
+            'base': '',
         }
         self.use_case._persist_rate = Mock(
             side_effect=self.use_case._persist_rate,
